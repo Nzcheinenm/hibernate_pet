@@ -21,26 +21,27 @@ public class Reader {
     @Column(name="lastName")
     private String lastName;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @OneToMany(mappedBy = "reader")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinTable(name = "books_readers",
-            joinColumns = {@JoinColumn(name = "reader_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "reader_id"))},
-            inverseJoinColumns = {@JoinColumn(name = "book_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "book_id"))})
-    private List<Book> books;
+    private List<BooksReaders> booksReaders;
+
+    @JoinColumn
+    String book_id;
+
+//    @OneToMany
+//    @JoinTable(name = "books_readers",
+//            joinColumns = {@JoinColumn(name = "reader_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "reader_id"))})
+//    private List<BooksReaders> booksReaders;
 
     public Reader() {
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public List<BooksReaders> getBooksReaders() {
+        return booksReaders;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public void addBook(Book book) {
-        this.books.add(book);
+    public void setBooksReaders(List<BooksReaders> booksReaders) {
+        this.booksReaders = booksReaders;
     }
 
     public int getId() {
@@ -70,6 +71,6 @@ public class Reader {
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName() + " " + getBooks().size();
+        return getFirstName() + " " + getLastName() + " " + booksReaders.size();
     }
 }

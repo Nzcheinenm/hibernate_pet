@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ru.t1.hibernate.dkononov.entities.Author;
 import ru.t1.hibernate.dkononov.entities.Book;
+import ru.t1.hibernate.dkononov.entities.BooksReaders;
 import ru.t1.hibernate.dkononov.entities.Reader;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Application {
                 .addAnnotatedClass(Book.class)
                 .addAnnotatedClass(Author.class)
                 .addAnnotatedClass(Reader.class)
-                //.addAnnotatedClass(Catalog.class)
+                .addAnnotatedClass(BooksReaders.class)
                 .buildSessionFactory();
 
         // CRUD
@@ -64,6 +65,11 @@ public class Application {
             reader.setLastName("Pupkin");
 //            reader.addBook(book);
             session.save(reader);
+
+            BooksReaders booksReaders = new BooksReaders();
+            booksReaders.setBook(book);
+            booksReaders.setReader(reader);
+            session.save(booksReaders);
 
 //            Author dostoevskiy = session.get(Author.class,1);
 //            Author london = session.get(Author.class,2);

@@ -22,14 +22,26 @@ public class Book {
     @JoinColumn(name = "author_id",foreignKey = @ForeignKey(name = "author_id"))
     private Author author;
 
-    @ManyToMany(mappedBy = "books")
-    private List<Reader> readers;
+    @OneToMany(mappedBy = "book")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<BooksReaders> booksReaders;
+//        @OneToMany
+//        @JoinTable(name = "books_readers",
+//        joinColumns = {@JoinColumn(name = "book_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "book_id"))})
+//        private List<BooksReaders> booksReaders;
+
+    @JoinColumn
+    String reader_id;
 
     public Book() {
     }
 
-    public List<Reader> getReaders() {
-        return readers;
+    public List<BooksReaders> getBooksReaders() {
+        return booksReaders;
+    }
+
+    public void setBooksReaders(List<BooksReaders> booksReaders) {
+        this.booksReaders = booksReaders;
     }
 
     public Book(String title, Author author) {
