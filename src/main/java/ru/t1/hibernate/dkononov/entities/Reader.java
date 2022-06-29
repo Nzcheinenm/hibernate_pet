@@ -4,7 +4,8 @@ package ru.t1.hibernate.dkononov.entities;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "reader")
@@ -15,32 +16,32 @@ public class Reader {
     @Column
     private int id;
 
-    @Column(name="firstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "lastName")
     private String lastName;
 
     @OneToMany(mappedBy = "reader")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<BooksReaders> booksReaders;
+    private Set<BooksReaders> booksReaders = new HashSet<BooksReaders>();
 
-    @JoinColumn
-    String book_id;
+    @Version
+    long version;
 
-//    @OneToMany
-//    @JoinTable(name = "books_readers",
-//            joinColumns = {@JoinColumn(name = "reader_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "reader_id"))})
-//    private List<BooksReaders> booksReaders;
 
     public Reader() {
     }
 
-    public List<BooksReaders> getBooksReaders() {
+    public void addBook(BooksReaders bookReader) {
+        this.booksReaders.add(bookReader);
+    }
+
+    public Set<BooksReaders> getBooksReaders() {
         return booksReaders;
     }
 
-    public void setBooksReaders(List<BooksReaders> booksReaders) {
+    public void setBooksReaders(Set<BooksReaders> booksReaders) {
         this.booksReaders = booksReaders;
     }
 

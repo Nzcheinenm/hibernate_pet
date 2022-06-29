@@ -16,12 +16,12 @@ public class BooksReaders {
 
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "book_id",foreignKey = @ForeignKey(name = "book_id"))
+    @JoinColumn(name = "book_id", foreignKey = @ForeignKey(name = "book_id"))
     private Book book;
 
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "author_id",foreignKey = @ForeignKey(name = "reader_id"))
+    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "reader_id"))
     private Reader reader;
 
 

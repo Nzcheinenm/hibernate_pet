@@ -4,7 +4,8 @@ package ru.t1.hibernate.dkononov.entities;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "book")
@@ -14,33 +15,33 @@ public class Book {
     @Column(name = "id")
     private int id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
     @ManyToOne
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "author_id",foreignKey = @ForeignKey(name = "author_id"))
+    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "author_id"))
     private Author author;
 
     @OneToMany(mappedBy = "book")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<BooksReaders> booksReaders;
-//        @OneToMany
-//        @JoinTable(name = "books_readers",
-//        joinColumns = {@JoinColumn(name = "book_id",referencedColumnName = "id",foreignKey = @ForeignKey(name = "book_id"))})
-//        private List<BooksReaders> booksReaders;
+    private Set<BooksReaders> booksReaders = new HashSet<BooksReaders>();
 
-    @JoinColumn
-    String reader_id;
+    @Version
+    long version;
 
     public Book() {
     }
 
-    public List<BooksReaders> getBooksReaders() {
+    public void addReader(BooksReaders bookReader) {
+        this.booksReaders.add(bookReader);
+    }
+
+    public Set<BooksReaders> getBooksReaders() {
         return booksReaders;
     }
 
-    public void setBooksReaders(List<BooksReaders> booksReaders) {
+    public void setBooksReaders(Set<BooksReaders> booksReaders) {
         this.booksReaders = booksReaders;
     }
 
@@ -71,7 +72,6 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     @Override
     public String toString() {

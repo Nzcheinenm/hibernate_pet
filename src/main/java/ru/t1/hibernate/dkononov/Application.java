@@ -1,8 +1,6 @@
 package ru.t1.hibernate.dkononov;
 
 
-
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -42,14 +40,14 @@ public class Application {
 //            Reader reader = session.get(Reader.class, 1);
 //            Book book = session.get(Book.class, 2);
 ////            reader.getBooks().add(book);
- //           reader.getBooks().clear();
- //           session.getTransaction().commit();
+            //           reader.getBooks().clear();
+            //           session.getTransaction().commit();
 
 
 //            CREATE AND DROP
             session = factory.getCurrentSession();
-            Author author = new Author("Fyodor","Dostoevsky");
-            Author author2 = new Author("Jack","London");
+            Author author = new Author("Fyodor", "Dostoevsky");
+            Author author2 = new Author("Jack", "London");
             session.beginTransaction();
             session.save(author);
             session.save(author2);
@@ -57,27 +55,25 @@ public class Application {
             Book book = new Book();
             book.setAuthor(author);
             book.setTitle("Brothers of Caramazov");
-            book.setId(1);
             session.save(book);
 
             Reader reader = new Reader();
             reader.setFirstName("Vasya");
             reader.setLastName("Pupkin");
-//            reader.addBook(book);
-            session.save(reader);
 
             BooksReaders booksReaders = new BooksReaders();
-            booksReaders.setBook(book);
             booksReaders.setReader(reader);
+            booksReaders.setBook(book);
+
             session.save(booksReaders);
+
 
 //            Author dostoevskiy = session.get(Author.class,1);
 //            Author london = session.get(Author.class,2);
 //            Book book1 = session.get(Book.class,1);
 //            Reader reader1 = session.get(Reader.class,1);
             session.getTransaction().commit();
-
-
+//            System.out.println(Author);
 
 
 //            READ

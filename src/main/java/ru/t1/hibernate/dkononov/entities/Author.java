@@ -4,13 +4,12 @@ package ru.t1.hibernate.dkononov.entities;
 import org.hibernate.annotations.Cascade;
 
 
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "author",
-indexes = @Index(name = "fio",columnList = "firstName,lastName",unique = true))
+        indexes = @Index(name = "fio", columnList = "firstName,lastName", unique = true))
 public class Author {
 
     @Id
@@ -18,10 +17,10 @@ public class Author {
     @Column(name = "id")
     private int id;
 
-    @Column(name="firstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "lastName")
     private String lastName;
     @OneToMany(mappedBy = "author")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
